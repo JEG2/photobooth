@@ -8,8 +8,9 @@ defmodule Photobooth.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
+      worker(Picam.Camera, [ ]),
       # Start the endpoint when the application starts
-      supervisor(PhotoboothWeb.Endpoint, []),
+      supervisor(PhotoboothWeb.Endpoint, [ ]),
       # Start your own worker by calling: Photobooth.Worker.start_link(arg1, arg2, arg3)
       # worker(Photobooth.Worker, [arg1, arg2, arg3]),
     ]

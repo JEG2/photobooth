@@ -3,6 +3,9 @@ defmodule PhotoboothWeb.Endpoint do
 
   socket "/socket", PhotoboothWeb.UserSocket
 
+  plug Photobooth.CameraStream,
+    at: "/camera_stream", from: :photobooth
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
