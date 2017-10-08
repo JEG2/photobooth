@@ -13,7 +13,7 @@ defmodule PhotoboothWeb.Router do
     plug :accepts, ["json"]
   end
 
-  forward "/camera_stream", Photobooth.CameraStream
+  forward "/camera_stream.mjpg", Photobooth.CameraStream
 
   scope "/", PhotoboothWeb do
     pipe_through :browser # Use the default browser stack
