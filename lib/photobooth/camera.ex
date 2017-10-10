@@ -1,6 +1,8 @@
 defmodule Photobooth.Camera do
   use GenServer
 
+  @photos = Path.join(:code.priv_dir(:photobooth), "photos")
+
   ##############
   ### Client ###
   ##############
@@ -14,7 +16,7 @@ defmodule Photobooth.Camera do
   end
 
   def snap do
-    GenServer.call(__MODULE__, :snap)
+    GenServer.call(__MODULE__, :snap, 30_000)
   end
 
   ##############
@@ -22,21 +24,16 @@ defmodule Photobooth.Camera do
   ##############
 
   def init(nil) do
-    Picam.set_img_effect(:none)
-    Picam.set_size(640, 480)
-    Picam.set_rotation(270)
-    Picam.set_hflip(true)
-
-    {:ok, nil}
+    File.mkdir_p!(@photos)
+    {:ok, start_camera()}
   end
 
-  def handle_call(:get_frame, _from, nil) do
+  def handle_call(:get_frame, _from, _camera) do
     {:reply, Picam.next_frame, nil}
   end
 
-  def handle_call(:snap, _from, nil) do
-    photos = Path.join(:code.priv_dir(:photobooth), "photos")
-    File.mkdir_p!(photos)
+  def handle_call(:snap, _from, camera) do
+    stop_camera(camera)
 
     file =
       NaiveDateTime.utc_now
@@ -47,10 +44,27 @@ defmodule Photobooth.Camera do
       |> Kernel.<>(".jpg")
     photo = Path.join(photos, file)
 
-    Picam.set_size(3280, 2464)
-    File.write!(photo, Picam.next_frame)
-    Picam.set_size(640, 480)
+    {"", 0} = System.cmd("raspistill", ~w[-n -q 100 -rot 270 -o #{photo}])
 
-    {:reply, :ok, nil}
+    {:reply, :ok, start_camera()}
+  end
+
+  ###############
+  ### Helpers ###
+  ###############
+
+  defp start_camera do
+    {:ok, camera} = Picam.Camera.start_link
+    Picam.set_size(320, 240)
+    Picam.set_rotation(270)
+    Picam.set_hflip(true)
+    camera
+  end
+
+  defp stop_camera(camera) do
+    :sys.get_state(camera)
+    |> Map.fetch!(:port)
+    |> Port.close
+    GenServer.stop(camera)
   end
 end
