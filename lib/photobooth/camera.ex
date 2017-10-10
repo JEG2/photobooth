@@ -1,7 +1,7 @@
 defmodule Photobooth.Camera do
   use GenServer
 
-  @photos = Path.join(:code.priv_dir(:photobooth), "photos")
+  @photos Path.join(:code.priv_dir(:photobooth), "photos")
 
   ##############
   ### Client ###
