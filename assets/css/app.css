@@ -20,5 +20,30 @@ body {
 }
 
 #controls h1 {
-    margin: 0px;
+    margin: 0px 0px 20px 0px;
+    height: 40px;
+
+    font-size:   40px;
+    line-height: 40px;
+}
+
+#controls #counter {
+    margin:  0px;
+    padding: 0px;
+    height:  240px;
+
+    font-size:   240px;
+    line-height: 240px;
+}
+
+#controls #clicker {
+    margin:  20px 0px 0px 0px;
+    padding: 2px 5px;
+    height:  40px;
+
+    font-size:        30px;
+    line-height:      30px;
+    text-align:       center;
+    background-color: black;
+    color:            white;
 }

@@ -22,7 +22,9 @@ defmodule PhotoboothWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhotoboothWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PhotoboothWeb do
+    pipe_through :api
+
+    post "/snap", HomeController, :snap
+  end
 end

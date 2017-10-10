@@ -1,11 +1,13 @@
 defmodule PhotoboothWeb.HomeController do
   use PhotoboothWeb, :controller
+  alias Photobooth.Camera
 
   def index(conn, _params) do
-    Picam.set_img_effect(:none)
-    Picam.set_size(640, 0)
-    Picam.set_rotation(270)
+    render conn, "index.html"
+  end
 
-    render(conn, "index.html")
+  def snap(conn, _params) do
+    Camera.snap
+    render conn, "snap.json", %{result: "ok"}
   end
 end

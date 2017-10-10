@@ -19,3 +19,52 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+$(function() {
+    $("#clicker").click(function(event) {
+        var button = $(this);
+        button.attr("disabled", "disabled");
+        button.css("background-color", "#666666");
+
+        var counter = $("#counter");
+        counter.html("3");
+        counter.css("color", "#009900");
+
+        setTimeout(function() {
+            var counter = $("#counter");
+            counter.html("2");
+            counter.css("color", "#FFFB00");
+
+
+            setTimeout(function() {
+                var counter = $("#counter");
+                counter.html("1");
+                counter.css("color", "#990000");
+
+                setTimeout(function() {
+                    var counter = $("#counter");
+                    counter.html("0");
+                    counter.css("color", "black");
+
+                    $.ajax({
+                        url:     "/api/snap",
+                        method:  "POST",
+                        success: function(data, status, xhr) {
+                            var counter = $("#counter");
+                            counter.html("&nbsp;");
+                            var button = $("#clicker");
+                            button.removeAttr("disabled");
+                            button.css("background-color", "black");
+                        },
+                        error:   function(xhr, status, message) {
+                            console.log(message);
+                            var counter = $("#counter");
+                            counter.html("!");
+                            counter.css("color", "#990000");
+                        }
+                    });
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    });
+});

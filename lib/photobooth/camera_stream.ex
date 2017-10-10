@@ -3,6 +3,7 @@ defmodule Photobooth.CameraStream do
   Plug for streaming an image
   """
 
+  alias Photobooth.Camera
   import Plug.Conn
 
   @behaviour Plug
@@ -27,7 +28,7 @@ defmodule Photobooth.CameraStream do
   end
 
   defp send_picture(conn) do
-    jpg    = Picam.next_frame
+    jpg    = Camera.get_frame
     size   = byte_size(jpg)
     header = "------#{@boundary}\r\n" <>
              "Content-Type: image/jpeg\r\n" <>
