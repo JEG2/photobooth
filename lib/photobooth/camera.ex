@@ -44,7 +44,7 @@ defmodule Photobooth.Camera do
       |> Kernel.<>(".jpg")
     photo = Path.join(@photos, file)
 
-    {"", 0} = System.cmd("raspistill", ~w[-n -q 100 -rot 270 -o #{photo}])
+    {"", 0} = System.cmd("raspistill", ~w[-n -q 100 -rot 270 -hf -o #{photo}])
 
     {:reply, :ok, start_camera()}
   end
