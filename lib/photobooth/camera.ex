@@ -12,7 +12,7 @@ defmodule Photobooth.Camera do
   end
 
   def get_frame do
-    GenServer.call(__MODULE__, :get_frame)
+    GenServer.call(__MODULE__, :get_frame, 30_000)
   end
 
   def snap do
