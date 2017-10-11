@@ -43,7 +43,7 @@ $(function() {
 
                 setTimeout(function() {
                     var counter = $("#counter");
-                    counter.html("0");
+                    counter.html("*");
                     counter.css("color", "black");
 
                     $.ajax({
