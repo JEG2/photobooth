@@ -28,8 +28,8 @@ defmodule Photobooth.Camera do
     {:ok, start_camera()}
   end
 
-  def handle_call(:get_frame, _from, _camera) do
-    {:reply, Picam.next_frame, nil}
+  def handle_call(:get_frame, _from, camera) do
+    {:reply, Picam.next_frame, camera}
   end
 
   def handle_call(:snap, _from, camera) do
