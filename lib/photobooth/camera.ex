@@ -42,7 +42,7 @@ defmodule Photobooth.Camera do
       |> String.replace(":", "-")
       |> String.replace(" ", "_")
       |> Kernel.<>(".jpg")
-    photo = Path.join(photos, file)
+    photo = Path.join(@photos, file)
 
     {"", 0} = System.cmd("raspistill", ~w[-n -q 100 -rot 270 -o #{photo}])
 
