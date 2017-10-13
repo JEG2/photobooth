@@ -38,7 +38,10 @@ defmodule Photobooth.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:picam, "~> 0.1.0"}
+      {:picam, "~> 0.1.0"},
+      {:ex_aws, "~> 1.1"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6.5"}
     ]
   end
 end

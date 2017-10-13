@@ -46,6 +46,7 @@ defmodule Photobooth.Camera do
 
     {"", 0} =
       System.cmd("raspistill", ~w[-n -t 1 -q 100 -rot 270 -hf -o #{photo}])
+    Uploader.upload(photo)
 
     {:reply, :ok, start_camera()}
   end
