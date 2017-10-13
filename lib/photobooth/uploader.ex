@@ -40,8 +40,15 @@ defmodule Photobooth.Uploader do
       raise "AWS_BUCKET must be set."
     end
 
-    S3.put_bucket(bucket, "us-west-2")
-    |> ExAws.request!
+    buckets =
+      S3.list_buckets
+      |> ExAws.request!
+      |> get_in(~w[body buckets]a)
+      |> Enum.map(&Map.fetch!(&1, :name))
+    unless bucket in buckets do
+      S3.put_bucket(bucket, "us-west-2")
+      |> ExAws.request!
+    end
 
     {:noreply, bucket}
   end
