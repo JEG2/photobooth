@@ -1,5 +1,6 @@
 defmodule Photobooth.Camera do
   use GenServer
+  alias Photobooth.Uploader
 
   @photos Path.join(:code.priv_dir(:photobooth), "photos")
 
