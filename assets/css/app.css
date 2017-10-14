@@ -48,7 +48,7 @@ body {
     color:            white;
 }
 #controls #clicker:active {
-    color: #990000;
+    color: #009900;
 }
 #controls #clicker:focus {
     outline: 0px;
