@@ -46,7 +46,7 @@ defmodule Photobooth.Camera do
     photo = Path.join(@photos, file)
 
     {"", 0} =
-      System.cmd("raspistill", ~w[-n -t 1 -q 100 -rot 270 -hf -o #{photo}])
+      System.cmd("raspistill", ~w[-n -t 1 -q 100 -rot 270 -o #{photo}])
     Uploader.upload(photo)
 
     {:reply, :ok, start_camera()}
@@ -60,7 +60,6 @@ defmodule Photobooth.Camera do
     {:ok, camera} = Picam.Camera.start_link
     Picam.set_size(320, 240)
     Picam.set_rotation(270)
-    Picam.set_hflip(true)
     camera
   end
 
