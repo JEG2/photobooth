@@ -48,7 +48,7 @@ defmodule Photobooth.Camera do
     {"", 0} =
       System.cmd(
         "raspistill",
-        ~w[-n -t 1 -q 100 -rot 270 -ifx none -o #{photo}]
+        ~w[-n -t 1 -q 100 -rot 270 -ifx none -ex auto -awb auto -o #{photo}]
       )
     Uploader.upload(photo)
 
